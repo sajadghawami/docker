@@ -92,6 +92,7 @@ docker-compose -f docker-compose.testing.yml up phpmyadmin
 ```
 
 ## Adding Custom Configuration
+### For phpmyadmin
 
 You can add your own custom config.inc.php settings (such as Configuration Storage setup) 
 by creating a file named "config.user.inc.php" with the various user defined settings
@@ -108,6 +109,20 @@ docker run --name myadmin -d --link mysql_db_server:db -p 8080:80 -v /some/local
 See the following links for config file information.
 https://docs.phpmyadmin.net/en/latest/config.html#config
 https://docs.phpmyadmin.net/en/latest/setup.html
+
+### For PHP
+
+You can add your own custom php.ini settings (such as max_upload_size)
+by creating a file named "php.ini" with the various user defined settings
+in it, and then linking it into the container using:
+
+```
+-v /some/local/directory/php.ini:/usr/local/etc/php/conf.d/php.ini
+```
+On the "docker run" line like this:
+``` 
+docker run --name myadmin -d --link mysql_db_server:db -p 8080:80 -v /some/local/directory/php.ini:/usr/local/etc/php/conf.d/php.ini phpmyadmin/phpmyadmin
+```
 
 ## Usage behind reverse proxys
 
